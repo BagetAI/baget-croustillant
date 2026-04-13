@@ -15,7 +15,7 @@
             color: #1A1A1A;
             font-family: 'Source Sans 3', sans-serif;
         }
-        h1, h2, h3, .serif {
+        h1, h2, h3, h4, .serif {
             font-family: 'Playfair Display', serif;
         }
         .accent-gold { color: #C5A059; }
@@ -24,9 +24,18 @@
         .sharp-corners { border-radius: 0 !important; }
         .editorial-line { border-top: 1px solid #1A1A1A; opacity: 0.1; }
         
-        .blur-overlay {
-            backdrop-filter: blur(8px);
-            background: rgba(250, 250, 247, 0.8);
+        .directory-card {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(26, 26, 26, 0.1);
+        }
+        .directory-card:hover {
+            border-color: #C5A059;
+            transform: translateY(-2px);
+        }
+
+        .search-input:focus {
+            border-bottom: 2px solid #C5A059;
+            outline: none;
         }
     </style>
 </head>
@@ -37,7 +46,7 @@
         <div class="text-2xl font-bold tracking-tight serif uppercase">Croustillant</div>
         <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-semibold">
             <a href="#concept" class="hover:opacity-60">Le Concept</a>
-            <a href="#top-10" class="hover:opacity-60">Le Top 10</a>
+            <a href="#directory" class="hover:opacity-60">Le Répertoire</a>
             <a href="#selection" class="hover:opacity-60">La Carte</a>
         </div>
         <a href="#waitlist" class="px-6 py-2 bg-black text-white text-xs uppercase tracking-widest font-bold sharp-corners">Rejoindre</a>
@@ -49,181 +58,69 @@
             <span class="text-xs uppercase tracking-[0.3em] font-bold accent-gold mb-6 block italic">L'excellence boulangère, en temps réel</span>
             <h1 class="text-5xl md:text-7xl leading-tight mb-8 font-medium">Le croissant parfait. <br><span class="italic">À la minute près.</span></h1>
             <p class="text-lg md:text-xl text-black/70 mb-10 max-w-lg leading-relaxed">
-                Croustillant est la première application qui vous géolocalise pour trouver les meilleurs croissants de Paris, triés sur le volet par nos experts, et vous alerte exactement au moment où ils sortent du four.
+                Croustillant est la première application qui vous alerte exactement au moment où les meilleurs croissants de Paris sortent du four.
             </p>
             
-            <form id="waitlist-form" class="flex flex-col sm:flex-row gap-0 max-w-md">
-                <input type="email" id="email" placeholder="Votre email" required class="flex-grow px-6 py-4 border border-black sharp-corners bg-transparent focus:outline-none text-lg">
+            <form id="waitlist-form-hero" class="flex flex-col sm:flex-row gap-0 max-w-md">
+                <input type="email" placeholder="Votre email" required class="flex-grow px-6 py-4 border border-black sharp-corners bg-transparent focus:outline-none text-lg">
                 <button type="submit" class="bg-black text-white px-8 py-4 uppercase tracking-widest font-bold text-sm sharp-corners hover:bg-black/90 transition-all">S'inscrire</button>
             </form>
-            <div id="form-message" class="mt-4 text-sm font-semibold hidden italic">Bienvenue dans la file d'attente. Votre quête commence bientôt.</div>
-            <p class="text-[10px] uppercase tracking-widest text-black/40 mt-6 italic">Accès limité aux 500 premiers membres beta.</p>
+            <div id="form-message-hero" class="mt-4 text-sm font-semibold hidden italic">Bienvenue dans la file d'attente. Votre quête commence bientôt.</div>
         </div>
         
         <div class="relative aspect-[4/5] bg-[#EBE2D5] overflow-hidden">
-            <img src="images/extreme-macro-photography-of-a-perfectly.png" alt="Croissant Texture" class="absolute inset-0 w-full h-full object-cover">
+            <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&q=80&w=1200" alt="Croissant Texture" class="absolute inset-0 w-full h-full object-cover">
             <div class="absolute inset-0 bg-black/10"></div>
-            
-            <!-- Timing Widget Overlay -->
-            <div class="absolute bottom-8 left-8 right-8 bg-white p-6 shadow-2xl sharp-corners border border-black/5">
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-[10px] uppercase tracking-[0.2em] font-bold">Prochaines Fournées</span>
-                    <span class="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
-                </div>
-                <div class="space-y-4">
-                    <div class="flex justify-between items-center border-b border-black/5 pb-2">
-                        <div>
-                            <p class="font-bold text-sm">Laurent Duchêne</p>
-                            <p class="text-[10px] text-black/50 uppercase font-semibold">Paris 13ème</p>
-                        </div>
-                        <p class="accent-gold font-bold">SORTIE : 08:45</p>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="font-bold text-sm">Boulangerie Utopie</p>
-                            <p class="text-[10px] text-black/50 uppercase font-semibold">Paris 11ème</p>
-                        </div>
-                        <p class="accent-gold font-bold">SORTIE : 09:12</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </header>
 
-    <!-- Top 10 Module -->
-    <section id="top-10" class="px-6 py-20 md:px-12 md:py-32 bg-[#FAFAF7]">
-        <div class="mb-16">
-            <span class="text-xs uppercase tracking-[0.3em] font-bold accent-gold mb-4 block">La Sélection Officielle</span>
-            <h2 class="text-4xl md:text-5xl font-medium mb-6">Le Top 10 des <span class="italic">Éclaireurs.</span></h2>
-            <p class="text-black/60 max-w-2xl text-lg">Nos experts ont parcouru les 20 arrondissements pour identifier les 10 spécimens qui redéfinissent le croustillant. Voici un aperçu de l'excellence.</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Item 1 -->
-            <div class="border border-black/10 bg-white p-6 sharp-corners flex flex-col h-full">
-                <div class="aspect-video bg-[#EBE2D5] mb-6 overflow-hidden">
-                    <img src="images/overhead-shot-of-a-luxury-croissant-on-a.png" alt="La Parisienne" class="w-full h-full object-cover">
+    <!-- Interactive Directory -->
+    <section id="directory" class="px-6 py-20 md:px-12 md:py-32 bg-[#FAFAF7]">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                <div class="max-w-2xl">
+                    <span class="text-xs uppercase tracking-[0.3em] font-bold accent-gold mb-4 block">L'Index des Experts</span>
+                    <h2 class="text-4xl md:text-5xl font-medium mb-6">Le Croustillant <span class="italic">50.</span></h2>
+                    <p class="text-black/60 text-lg">Recherchez parmi les 50 boulangeries sélectionnées par nos critiques. Chaque adresse est vérifiée pour son feuilletage et son timing.</p>
                 </div>
-                <div class="flex justify-between items-start mb-2">
-                    <h4 class="text-xl font-bold uppercase tracking-tight">La Parisienne</h4>
-                    <span class="text-xs font-bold bg-black text-white px-2 py-1">10ème</span>
-                </div>
-                <p class="text-sm text-black/60 mb-6 italic">Lauréat du Concours 2025. Un équilibre parfait entre le beurre Charentes-Poitou et une croûte aérienne.</p>
-                <div class="mt-auto pt-4 border-t border-black/5 flex justify-between items-center">
-                    <span class="text-[10px] uppercase tracking-widest font-bold text-black/40 text-left">Prochaine fournée théorique</span>
-                    <span class="accent-gold font-bold text-lg">07:15</span>
+                <div class="w-full md:w-96">
+                    <div class="relative">
+                        <input type="text" id="directory-search" placeholder="Rechercher par nom ou arrondissement..." class="w-full bg-transparent border-b border-black/20 py-4 search-input text-lg italic">
+                        <i data-lucide="search" class="absolute right-0 top-1/2 -translate-y-1/2 w-5 h-5 opacity-40"></i>
+                    </div>
                 </div>
             </div>
 
-            <!-- Item 2 -->
-            <div class="border border-black/10 bg-white p-6 sharp-corners flex flex-col h-full">
-                <div class="aspect-video bg-[#EBE2D5] mb-6 overflow-hidden">
-                    <div class="w-full h-full flex items-center justify-center italic text-black/20 text-sm">Image Haute Fidélité</div>
-                </div>
-                <div class="flex justify-between items-start mb-2">
-                    <h4 class="text-xl font-bold uppercase tracking-tight">Mille et Un</h4>
-                    <span class="text-xs font-bold bg-black text-white px-2 py-1">6ème</span>
-                </div>
-                <p class="text-sm text-black/60 mb-6 italic">Une structure alvéolaire record. On murmure que c'est le croissant préféré des concierges du Ritz.</p>
-                <div class="mt-auto pt-4 border-t border-black/5 flex justify-between items-center">
-                    <span class="text-[10px] uppercase tracking-widest font-bold text-black/40 text-left">Prochaine fournée théorique</span>
-                    <span class="accent-gold font-bold text-lg">07:30</span>
-                </div>
+            <div id="directory-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Directory items will be injected here by JS -->
             </div>
-
-            <!-- Item 3 -->
-            <div class="border border-black/10 bg-white p-6 sharp-corners flex flex-col h-full">
-                <div class="aspect-video bg-[#EBE2D5] mb-6 overflow-hidden">
-                    <div class="w-full h-full flex items-center justify-center italic text-black/20 text-sm">Image Haute Fidélité</div>
-                </div>
-                <div class="flex justify-between items-start mb-2">
-                    <h4 class="text-xl font-bold uppercase tracking-tight">Boulangerie Moderne</h4>
-                    <span class="text-xs font-bold bg-black text-white px-2 py-1">5ème</span>
-                </div>
-                <p class="text-sm text-black/60 mb-6 italic">L'institution du Quartier Latin. Un goût de noisette unique issu d'une fermentation lente de 24h.</p>
-                <div class="mt-auto pt-4 border-t border-black/5 flex justify-between items-center">
-                    <span class="text-[10px] uppercase tracking-widest font-bold text-black/40 text-left">Prochaine fournée théorique</span>
-                    <span class="accent-gold font-bold text-lg">07:00</span>
-                </div>
-            </div>
-
-            <!-- Blurred Items Teaser -->
-            <div class="relative md:col-span-2 lg:col-span-3 border border-black/10 bg-white p-12 sharp-corners flex flex-col items-center justify-center text-center overflow-hidden">
-                <div class="absolute inset-0 blur-overlay z-10 flex flex-col items-center justify-center px-6">
-                    <i data-lucide="lock" class="w-12 h-12 text-[#C5A059] mb-6"></i>
-                    <h3 class="text-3xl font-medium mb-4">Et 40 autres adresses <span class="italic underline">secrètes.</span></h3>
-                    <p class="text-black/60 max-w-md mb-8">Débloquez l'accès complet au Top 50 et recevez les alertes "Hot Batch" en temps réel sur votre iPhone.</p>
-                    <a href="#waitlist" class="bg-black text-white px-10 py-4 uppercase tracking-widest font-bold text-sm sharp-corners hover:scale-105 transition-all">Accéder à la Liste Complète</a>
-                </div>
-                
-                <!-- Background Blurred Content -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full opacity-20 filter blur-sm">
-                    <div class="p-4 border border-black/5">
-                         <div class="h-32 bg-gray-200 mb-4"></div>
-                         <div class="h-4 w-3/4 bg-gray-300 mb-2"></div>
-                         <div class="h-4 w-1/2 bg-gray-200"></div>
-                    </div>
-                    <div class="p-4 border border-black/5">
-                         <div class="h-32 bg-gray-200 mb-4"></div>
-                         <div class="h-4 w-3/4 bg-gray-300 mb-2"></div>
-                         <div class="h-4 w-1/2 bg-gray-200"></div>
-                    </div>
-                    <div class="p-4 border border-black/5">
-                         <div class="h-32 bg-gray-200 mb-4"></div>
-                         <div class="h-4 w-3/4 bg-gray-300 mb-2"></div>
-                         <div class="h-4 w-1/2 bg-gray-200"></div>
-                    </div>
-                </div>
+            
+            <div id="no-results" class="hidden py-24 text-center">
+                <p class="text-2xl italic text-black/40">Aucune boulangerie ne correspond à votre recherche.</p>
             </div>
         </div>
     </section>
 
     <div class="editorial-line mx-6 md:mx-12"></div>
 
-    <!-- Features Section -->
-    <section id="concept" class="px-6 py-20 md:px-12 md:py-32 bg-white">
-        <div class="grid md:grid-cols-3 gap-16">
-            <div class="space-y-6">
-                <span class="text-3xl italic serif">01.</span>
-                <h3 class="text-2xl font-medium uppercase tracking-tight">Curation Radicale</h3>
-                <p class="text-black/60 leading-relaxed italic">Nous ne listons pas toutes les boulangeries. Uniquement le Top 50, sélectionné pour son feuilletage alvéolé et son beurre AOP Charentes-Poitou.</p>
-            </div>
-            <div class="space-y-6">
-                <span class="text-3xl italic serif">02.</span>
-                <h3 class="text-2xl font-medium uppercase tracking-tight">Timing Absolu</h3>
-                <p class="text-black/60 leading-relaxed italic">Un croissant se déguste tiède. Notre algorithme suit les cycles de cuisson des meilleurs artisans pour vous alerter en temps réel.</p>
-            </div>
-            <div class="space-y-6">
-                <span class="text-3xl italic serif">03.</span>
-                <h3 class="text-2xl font-medium uppercase tracking-tight">Privilèges Membres</h3>
-                <p class="text-black/60 leading-relaxed italic">Accédez à des fournées secrètes, des files prioritaires et des dégustations privées avec les "Croustillant Pass".</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Map Preview -->
-    <section id="selection" class="px-6 py-20 md:px-12 bg-[#1A1A1A] text-white overflow-hidden relative">
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-            <div class="relative z-10">
-                <h2 class="text-4xl md:text-6xl mb-8 leading-tight">La Carte de <br><span class="italic text-[#C5A059]">l'Or Chaud.</span></h2>
-                <p class="text-white/60 text-lg mb-10 max-w-md italic">Découvrez les adresses secrètes du Marais, de Saint-Germain et de Montmartre. Une cartographie de l'excellence où chaque point est un 10/10 garanti.</p>
-                <ul class="space-y-4 text-sm uppercase tracking-widest font-bold">
-                    <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-[#C5A059]"></i> Artisans primés uniquement</li>
-                    <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-[#C5A059]"></i> Alertes push personnalisées</li>
-                    <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-[#C5A059]"></i> Intégration Conciergerie 5*</li>
-                </ul>
-            </div>
-            <div class="relative opacity-40 grayscale group hover:grayscale-0 transition-all duration-700">
-                <div class="absolute inset-0 bg-gradient-to-r from-[#1A1A1A] to-transparent z-10"></div>
-                <img src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?auto=format&fit=crop&q=80&w=800" alt="Paris Map" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000">
-                <div class="absolute top-1/4 left-1/3 w-4 h-4 bg-[#C5A059] rounded-full animate-ping"></div>
-                <div class="absolute top-1/2 left-2/3 w-4 h-4 bg-[#C5A059] rounded-full animate-ping delay-300"></div>
-            </div>
+    <!-- Waitlist Modal/Section -->
+    <section id="waitlist" class="px-6 py-20 md:px-12 md:py-32 bg-white text-center">
+        <div class="max-w-2xl mx-auto">
+            <i data-lucide="bell" class="w-12 h-12 accent-gold mx-auto mb-8"></i>
+            <h2 class="text-4xl md:text-5xl font-medium mb-8 uppercase tracking-tighter">Recevez l'alerte <br><span class="italic">Hot Batch.</span></h2>
+            <p class="text-black/60 text-lg mb-10 leading-relaxed">
+                Inscrivez-vous pour être averti en temps réel des prochaines fournées. Ne manquez plus jamais le moment où le croissant est encore trop chaud pour être glissé dans un sac.
+            </p>
+            <form id="waitlist-form-footer" class="flex flex-col sm:flex-row gap-0 max-w-lg mx-auto">
+                <input type="email" placeholder="Votre email" required class="flex-grow px-6 py-4 border border-black sharp-corners bg-transparent focus:outline-none text-lg">
+                <button type="submit" class="bg-black text-white px-8 py-4 uppercase tracking-widest font-bold text-sm sharp-corners hover:bg-black/90 transition-all">S'inscrire</button>
+            </form>
+            <div id="form-message-footer" class="mt-4 text-sm font-semibold hidden italic">Votre accès prioritaire est enregistré.</div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer id="waitlist" class="px-6 py-12 md:px-12 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-8">
+    <footer class="px-6 py-12 md:px-12 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-8">
         <div class="text-xl font-bold tracking-tight serif uppercase">Croustillant</div>
         <div class="text-[10px] uppercase tracking-[0.2em] text-black/40">
             &copy; 2026 Croustillant Paris. Tous droits réservés.
@@ -235,16 +132,112 @@
     </footer>
 
     <script>
-        // Initialize Lucide Icons
+        // Directory Data
+        const croustillant50 = [
+            { name: "La Parisienne", arr: "10e", address: "12 rue du Fbg Poissonnière", price: "1,40 €", window: "07:15 - 08:30" },
+            { name: "Mille et Un", arr: "6e", address: "32 rue Saint-Placide", price: "1,50 €", window: "07:30 - 09:00" },
+            { name: "Boulangerie Moderne", arr: "5e", address: "16 rue des Fossés St-Jacques", price: "1,30 €", window: "07:00 - 08:45" },
+            { name: "Boulangerie Lorette", arr: "13e", address: "48 rue Bobillot", price: "1,35 €", window: "07:30 - 09:30" },
+            { name: "Moulin de la Croix Nivert", arr: "15e", address: "39 rue de la Croix Nivert", price: "1,40 €", window: "07:15 - 08:30" },
+            { name: "Magali Charonne", arr: "11e", address: "135 rue de Charonne", price: "1,35 €", window: "07:45 - 09:15" },
+            { name: "La Fabrique aux Gourmandises", arr: "14e", address: "82 rue de l'Amiral Mouchez", price: "1,40 €", window: "07:00 - 08:30" },
+            { name: "Ritz Paris Le Comptoir", arr: "1er", address: "38 rue Cambon", price: "4,00 €", window: "08:00 - 10:00" },
+            { name: "Cédric Grolet Opéra", arr: "2e", address: "35 avenue de l'Opéra", price: "4,50 €", window: "08:30 - 09:30" },
+            { name: "Stohrer", arr: "2e", address: "51 rue Montorgueil", price: "1,70 €", window: "07:30 - 09:00" },
+            { name: "Mamiche", arr: "9e", address: "45 rue Condorcet", price: "1,50 €", window: "08:00 - 10:30" },
+            { name: "Du Pain et des Idées", arr: "10e", address: "34 rue Yves Toudic", price: "2,10 €", window: "07:00 - 09:00" },
+            { name: "Liberté", arr: "10e", address: "39 rue des Vinaigriers", price: "1,60 €", window: "07:30 - 09:30" },
+            { name: "Sain Boulangerie", arr: "10e", address: "15 rue Marie et Louise", price: "1,90 €", window: "08:00 - 10:00" },
+            { name: "Utopie", arr: "11e", address: "20 rue Jean-Pierre Timbaud", price: "1,50 €", window: "07:30 - 10:00" },
+            { name: "The French Bastards", arr: "11e", address: "61 rue Oberkampf", price: "1,60 €", window: "08:00 - 10:00" },
+            { name: "Cyril Lignac", arr: "11e", address: "24 rue Paul Bert", price: "1,80 €", window: "07:15 - 09:00" },
+            { name: "Tapisserie", arr: "11e", address: "65 rue de Charonne", price: "2,20 €", window: "08:30 - 10:30" },
+            { name: "Blé Sucré", arr: "12e", address: "7 rue Antoine Vollon", price: "1,60 €", window: "07:30 - 09:15" },
+            { name: "Le Boulanger de la Tour", arr: "5e", address: "2 rue du Cardinal Lemoine", price: "1,80 €", window: "07:00 - 08:30" },
+            { name: "Maison d'Isabelle", arr: "5e", address: "47ter Bd Saint-Germain", price: "1,20 €", window: "07:00 - 10:00" },
+            { name: "Atelier P1", arr: "18e", address: "157 bis rue Marcadet", price: "1,70 €", window: "08:00 - 10:30" },
+            { name: "Boris Lumé", arr: "18e", address: "48 rue Caulaincourt", price: "1,60 €", window: "07:30 - 09:30" },
+            { name: "Boulangerie Shika", arr: "11e", address: "10 rue de la Pierre Levée", price: "1,60 €", window: "08:00 - 10:00" },
+            { name: "Maison Landemaine", arr: "11e", address: "28 Bd Beaumarchais", price: "1,40 €", window: "07:00 - 09:30" },
+            { name: "Boulangerie Bacillus", arr: "17e", address: "100 rue des Dames", price: "1,50 €", window: "07:30 - 09:00" },
+            { name: "Thierry Marx Bakery", arr: "8e", address: "51 rue Laborde", price: "1,90 €", window: "08:00 - 09:30" },
+            { name: "Panade", arr: "15e", address: "35 rue Violet", price: "1,80 €", window: "08:00 - 10:00" },
+            { name: "L'Artisan de Belleville", arr: "19e", address: "19 rue de Belleville", price: "1,30 €", window: "06:45 - 08:15" },
+            { name: "Boulangerie Bo", arr: "12e", address: "85 bis rue de Charenten", price: "1,60 €", window: "07:30 - 09:30" },
+            { name: "Ten Belles Bread", arr: "10e", address: "17-19 bis rue de la Grange aux Belles", price: "2,00 €", window: "08:30 - 10:30" },
+            { name: "Maison Pichard", arr: "15e", address: "88 rue Cambronne", price: "1,40 €", window: "07:00 - 08:45" },
+            { name: "Le Grenier à Pain", arr: "18e", address: "38 rue des Abbesses", price: "1,40 €", window: "07:30 - 09:00" },
+            { name: "Boulangerie MieMie", arr: "11e", address: "25 rue de la Fontaine au Roi", price: "1,70 €", window: "08:15 - 10:00" },
+            { name: "Maison Louvard", arr: "9e", address: "11 rue de Châteaudun", price: "1,60 €", window: "07:30 - 09:15" },
+            { name: "Boulangerie Union", arr: "9e", address: "2 rue Bleue", price: "1,60 €", window: "08:00 - 10:00" },
+            { name: "Maison Carton", arr: "10e", address: "6 Bd de Denain", price: "1,45 €", window: "07:00 - 08:30" }
+        ];
+
+        const directoryGrid = document.getElementById('directory-grid');
+        const searchInput = document.getElementById('directory-search');
+        const noResults = document.getElementById('no-results');
+
+        function renderDirectory(items) {
+            directoryGrid.innerHTML = '';
+            if (items.length === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+                items.forEach(bakery => {
+                    const card = document.createElement('div');
+                    card.className = 'directory-card bg-white p-8 sharp-corners flex flex-col h-full';
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <h3 class="text-2xl font-bold uppercase tracking-tight mb-1">${bakery.name}</h3>
+                                <p class="text-[10px] uppercase tracking-widest font-bold text-black/40">${bakery.address}</p>
+                            </div>
+                            <span class="text-xs font-bold bg-black text-white px-3 py-1 sharp-corners">${bakery.arr}</span>
+                        </div>
+                        <div class="space-y-4 mb-8">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-black/50 italic">Prix moyen</span>
+                                <span class="font-bold">${bakery.price}</span>
+                            </div>
+                            <div class="flex justify-between text-sm">
+                                <span class="text-black/50 italic">Fenêtre Fournée</span>
+                                <span class="accent-gold font-bold">${bakery.window}</span>
+                            </div>
+                        </div>
+                        <button onclick="scrollToWaitlist()" class="mt-auto w-full py-4 border border-black uppercase tracking-widest font-bold text-[10px] hover:bg-black hover:text-white transition-all sharp-corners">
+                            M'avertir pour cette boulangerie
+                        </button>
+                    `;
+                    directoryGrid.appendChild(card);
+                });
+            }
+        }
+
+        function scrollToWaitlist() {
+            document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = croustillant50.filter(b => 
+                b.name.toLowerCase().includes(term) || 
+                b.arr.toLowerCase().includes(term) ||
+                b.address.toLowerCase().includes(term)
+            );
+            renderDirectory(filtered);
+        });
+
+        // Initial Render
+        renderDirectory(croustillant50);
+
+        // Lucide Icons
         lucide.createIcons();
 
-        // Handle Form Submission
-        const form = document.getElementById('waitlist-form');
-        const message = document.getElementById('form-message');
-
-        form.addEventListener('submit', async (e) => {
+        // Lead capture logic
+        async function handleSignup(e) {
             e.preventDefault();
-            const email = document.getElementById('email').value;
+            const emailInput = e.target.querySelector('input[type="email"]');
+            const messageDiv = e.target.nextElementSibling;
             
             try {
                 const response = await fetch("https://baget.ai/api/leads", {
@@ -252,21 +245,23 @@
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         companyId: "96db7275-9aac-4e84-a801-406ac1b636f7",
-                        email: email
+                        email: emailInput.value
                     })
                 });
 
                 if (response.ok) {
-                    form.classList.add('hidden');
-                    message.classList.remove('hidden');
+                    e.target.classList.add('hidden');
+                    messageDiv.classList.remove('hidden');
                 } else {
-                    alert("Une erreur est survenue. Veuillez réessayer.");
+                    alert("Erreur. Veuillez réessayer.");
                 }
             } catch (error) {
-                console.error("Error submitting lead:", error);
-                alert("Une erreur est survenue.");
+                console.error("Error:", error);
             }
-        });
+        }
+
+        document.getElementById('waitlist-form-hero').addEventListener('submit', handleSignup);
+        document.getElementById('waitlist-form-footer').addEventListener('submit', handleSignup);
     </script>
 </body>
 </html>
