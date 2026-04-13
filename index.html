@@ -18,11 +18,16 @@
         h1, h2, h3, .serif {
             font-family: 'Playfair Display', serif;
         }
-        .accent-gold { color: #C9A96E; }
-        .bg-gold { background-color: #C9A96E; }
-        .border-gold { border-color: #C9A96E; }
+        .accent-gold { color: #C5A059; }
+        .bg-gold { background-color: #C5A059; }
+        .border-gold { border-color: #C5A059; }
         .sharp-corners { border-radius: 0 !important; }
         .editorial-line { border-top: 1px solid #1A1A1A; opacity: 0.1; }
+        
+        .blur-overlay {
+            backdrop-filter: blur(8px);
+            background: rgba(250, 250, 247, 0.8);
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -32,8 +37,8 @@
         <div class="text-2xl font-bold tracking-tight serif uppercase">Croustillant</div>
         <div class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-semibold">
             <a href="#concept" class="hover:opacity-60">Le Concept</a>
-            <a href="#selection" class="hover:opacity-60">La Sélection</a>
-            <a href="#waitlist" class="hover:opacity-60">L'Accès</a>
+            <a href="#top-10" class="hover:opacity-60">Le Top 10</a>
+            <a href="#selection" class="hover:opacity-60">La Carte</a>
         </div>
         <a href="#waitlist" class="px-6 py-2 bg-black text-white text-xs uppercase tracking-widest font-bold sharp-corners">Rejoindre</a>
     </nav>
@@ -52,38 +57,31 @@
                 <button type="submit" class="bg-black text-white px-8 py-4 uppercase tracking-widest font-bold text-sm sharp-corners hover:bg-black/90 transition-all">S'inscrire</button>
             </form>
             <div id="form-message" class="mt-4 text-sm font-semibold hidden italic">Bienvenue dans la file d'attente. Votre quête commence bientôt.</div>
-            <p class="text-[10px] uppercase tracking-widest text-black/40 mt-6">Accès limité aux 500 premiers membres beta.</p>
+            <p class="text-[10px] uppercase tracking-widest text-black/40 mt-6 italic">Accès limité aux 500 premiers membres beta.</p>
         </div>
         
         <div class="relative aspect-[4/5] bg-[#EBE2D5] overflow-hidden">
-            <!-- Simulated High-End Image with SVG Overlay -->
-            <div class="absolute inset-0 flex items-center justify-center p-12">
-                <svg width="100%" height="100%" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="400" height="500" fill="#EBE2D5"/>
-                    <path d="M100 350C100 350 150 250 200 250C250 250 300 350 300 350L100 350Z" fill="#C9A96E" fill-opacity="0.3"/>
-                    <path d="M150 300C150 300 200 200 250 200" stroke="#1A1A1A" stroke-width="0.5" stroke-dasharray="2 2"/>
-                    <text x="200" y="450" text-anchor="middle" font-family="Playfair Display" font-style="italic" font-size="14" fill="#1A1A1A">L'Art de la Viennoiserie</text>
-                </svg>
-                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full border-[20px] border-white/20"></div>
-            </div>
+            <img src="images/extreme-macro-photography-of-a-perfectly.png" alt="Croissant Texture" class="absolute inset-0 w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/10"></div>
+            
             <!-- Timing Widget Overlay -->
-            <div class="absolute bottom-8 left-8 right-8 bg-white p-6 shadow-2xl sharp-corners border border-black/5 animate-pulse">
+            <div class="absolute bottom-8 left-8 right-8 bg-white p-6 shadow-2xl sharp-corners border border-black/5">
                 <div class="flex items-center justify-between mb-4">
                     <span class="text-[10px] uppercase tracking-[0.2em] font-bold">Prochaines Fournées</span>
-                    <span class="flex h-2 w-2 rounded-full bg-green-500"></span>
+                    <span class="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
                 </div>
                 <div class="space-y-4">
                     <div class="flex justify-between items-center border-b border-black/5 pb-2">
                         <div>
                             <p class="font-bold text-sm">Laurent Duchêne</p>
-                            <p class="text-[10px] text-black/50 uppercase">Paris 13ème</p>
+                            <p class="text-[10px] text-black/50 uppercase font-semibold">Paris 13ème</p>
                         </div>
                         <p class="accent-gold font-bold">SORTIE : 08:45</p>
                     </div>
                     <div class="flex justify-between items-center">
                         <div>
                             <p class="font-bold text-sm">Boulangerie Utopie</p>
-                            <p class="text-[10px] text-black/50 uppercase">Paris 11ème</p>
+                            <p class="text-[10px] text-black/50 uppercase font-semibold">Paris 11ème</p>
                         </div>
                         <p class="accent-gold font-bold">SORTIE : 09:12</p>
                     </div>
@@ -92,6 +90,94 @@
         </div>
     </header>
 
+    <!-- Top 10 Module -->
+    <section id="top-10" class="px-6 py-20 md:px-12 md:py-32 bg-[#FAFAF7]">
+        <div class="mb-16">
+            <span class="text-xs uppercase tracking-[0.3em] font-bold accent-gold mb-4 block">La Sélection Officielle</span>
+            <h2 class="text-4xl md:text-5xl font-medium mb-6">Le Top 10 des <span class="italic">Éclaireurs.</span></h2>
+            <p class="text-black/60 max-w-2xl text-lg">Nos experts ont parcouru les 20 arrondissements pour identifier les 10 spécimens qui redéfinissent le croustillant. Voici un aperçu de l'excellence.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Item 1 -->
+            <div class="border border-black/10 bg-white p-6 sharp-corners flex flex-col h-full">
+                <div class="aspect-video bg-[#EBE2D5] mb-6 overflow-hidden">
+                    <img src="images/overhead-shot-of-a-luxury-croissant-on-a.png" alt="La Parisienne" class="w-full h-full object-cover">
+                </div>
+                <div class="flex justify-between items-start mb-2">
+                    <h4 class="text-xl font-bold uppercase tracking-tight">La Parisienne</h4>
+                    <span class="text-xs font-bold bg-black text-white px-2 py-1">10ème</span>
+                </div>
+                <p class="text-sm text-black/60 mb-6 italic">Lauréat du Concours 2025. Un équilibre parfait entre le beurre Charentes-Poitou et une croûte aérienne.</p>
+                <div class="mt-auto pt-4 border-t border-black/5 flex justify-between items-center">
+                    <span class="text-[10px] uppercase tracking-widest font-bold text-black/40 text-left">Prochaine fournée théorique</span>
+                    <span class="accent-gold font-bold text-lg">07:15</span>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="border border-black/10 bg-white p-6 sharp-corners flex flex-col h-full">
+                <div class="aspect-video bg-[#EBE2D5] mb-6 overflow-hidden">
+                    <div class="w-full h-full flex items-center justify-center italic text-black/20 text-sm">Image Haute Fidélité</div>
+                </div>
+                <div class="flex justify-between items-start mb-2">
+                    <h4 class="text-xl font-bold uppercase tracking-tight">Mille et Un</h4>
+                    <span class="text-xs font-bold bg-black text-white px-2 py-1">6ème</span>
+                </div>
+                <p class="text-sm text-black/60 mb-6 italic">Une structure alvéolaire record. On murmure que c'est le croissant préféré des concierges du Ritz.</p>
+                <div class="mt-auto pt-4 border-t border-black/5 flex justify-between items-center">
+                    <span class="text-[10px] uppercase tracking-widest font-bold text-black/40 text-left">Prochaine fournée théorique</span>
+                    <span class="accent-gold font-bold text-lg">07:30</span>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="border border-black/10 bg-white p-6 sharp-corners flex flex-col h-full">
+                <div class="aspect-video bg-[#EBE2D5] mb-6 overflow-hidden">
+                    <div class="w-full h-full flex items-center justify-center italic text-black/20 text-sm">Image Haute Fidélité</div>
+                </div>
+                <div class="flex justify-between items-start mb-2">
+                    <h4 class="text-xl font-bold uppercase tracking-tight">Boulangerie Moderne</h4>
+                    <span class="text-xs font-bold bg-black text-white px-2 py-1">5ème</span>
+                </div>
+                <p class="text-sm text-black/60 mb-6 italic">L'institution du Quartier Latin. Un goût de noisette unique issu d'une fermentation lente de 24h.</p>
+                <div class="mt-auto pt-4 border-t border-black/5 flex justify-between items-center">
+                    <span class="text-[10px] uppercase tracking-widest font-bold text-black/40 text-left">Prochaine fournée théorique</span>
+                    <span class="accent-gold font-bold text-lg">07:00</span>
+                </div>
+            </div>
+
+            <!-- Blurred Items Teaser -->
+            <div class="relative md:col-span-2 lg:col-span-3 border border-black/10 bg-white p-12 sharp-corners flex flex-col items-center justify-center text-center overflow-hidden">
+                <div class="absolute inset-0 blur-overlay z-10 flex flex-col items-center justify-center px-6">
+                    <i data-lucide="lock" class="w-12 h-12 text-[#C5A059] mb-6"></i>
+                    <h3 class="text-3xl font-medium mb-4">Et 40 autres adresses <span class="italic underline">secrètes.</span></h3>
+                    <p class="text-black/60 max-w-md mb-8">Débloquez l'accès complet au Top 50 et recevez les alertes "Hot Batch" en temps réel sur votre iPhone.</p>
+                    <a href="#waitlist" class="bg-black text-white px-10 py-4 uppercase tracking-widest font-bold text-sm sharp-corners hover:scale-105 transition-all">Accéder à la Liste Complète</a>
+                </div>
+                
+                <!-- Background Blurred Content -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full opacity-20 filter blur-sm">
+                    <div class="p-4 border border-black/5">
+                         <div class="h-32 bg-gray-200 mb-4"></div>
+                         <div class="h-4 w-3/4 bg-gray-300 mb-2"></div>
+                         <div class="h-4 w-1/2 bg-gray-200"></div>
+                    </div>
+                    <div class="p-4 border border-black/5">
+                         <div class="h-32 bg-gray-200 mb-4"></div>
+                         <div class="h-4 w-3/4 bg-gray-300 mb-2"></div>
+                         <div class="h-4 w-1/2 bg-gray-200"></div>
+                    </div>
+                    <div class="p-4 border border-black/5">
+                         <div class="h-32 bg-gray-200 mb-4"></div>
+                         <div class="h-4 w-3/4 bg-gray-300 mb-2"></div>
+                         <div class="h-4 w-1/2 bg-gray-200"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <div class="editorial-line mx-6 md:mx-12"></div>
 
     <!-- Features Section -->
@@ -99,18 +185,18 @@
         <div class="grid md:grid-cols-3 gap-16">
             <div class="space-y-6">
                 <span class="text-3xl italic serif">01.</span>
-                <h3 class="text-2xl font-medium">Curation Radicale</h3>
-                <p class="text-black/60 leading-relaxed">Nous ne listons pas toutes les boulangeries. Uniquement le Top 50, sélectionné pour son feuilletage alvéolé et son beurre AOP Charentes-Poitou.</p>
+                <h3 class="text-2xl font-medium uppercase tracking-tight">Curation Radicale</h3>
+                <p class="text-black/60 leading-relaxed italic">Nous ne listons pas toutes les boulangeries. Uniquement le Top 50, sélectionné pour son feuilletage alvéolé et son beurre AOP Charentes-Poitou.</p>
             </div>
             <div class="space-y-6">
                 <span class="text-3xl italic serif">02.</span>
-                <h3 class="text-2xl font-medium">Timing Absolu</h3>
-                <p class="text-black/60 leading-relaxed">Un croissant se déguste tiède. Notre algorithme suit les cycles de cuisson des meilleurs artisans pour vous alerter en temps réel.</p>
+                <h3 class="text-2xl font-medium uppercase tracking-tight">Timing Absolu</h3>
+                <p class="text-black/60 leading-relaxed italic">Un croissant se déguste tiède. Notre algorithme suit les cycles de cuisson des meilleurs artisans pour vous alerter en temps réel.</p>
             </div>
             <div class="space-y-6">
                 <span class="text-3xl italic serif">03.</span>
-                <h3 class="text-2xl font-medium">Privilèges Membres</h3>
-                <p class="text-black/60 leading-relaxed">Accédez à des fournées secrètes, des files prioritaires et des dégustations privées avec les "Croustillant Pass".</p>
+                <h3 class="text-2xl font-medium uppercase tracking-tight">Privilèges Membres</h3>
+                <p class="text-black/60 leading-relaxed italic">Accédez à des fournées secrètes, des files prioritaires et des dégustations privées avec les "Croustillant Pass".</p>
             </div>
         </div>
     </section>
@@ -119,25 +205,25 @@
     <section id="selection" class="px-6 py-20 md:px-12 bg-[#1A1A1A] text-white overflow-hidden relative">
         <div class="grid md:grid-cols-2 gap-16 items-center">
             <div class="relative z-10">
-                <h2 class="text-4xl md:text-6xl mb-8 leading-tight">La Carte de <br><span class="italic text-[#C9A96E]">l'Or Chaud.</span></h2>
-                <p class="text-white/60 text-lg mb-10 max-w-md">Découvrez les adresses secrètes du Marais, de Saint-Germain et de Montmartre. Une cartographie de l'excellence où chaque point est un 10/10 garanti.</p>
+                <h2 class="text-4xl md:text-6xl mb-8 leading-tight">La Carte de <br><span class="italic text-[#C5A059]">l'Or Chaud.</span></h2>
+                <p class="text-white/60 text-lg mb-10 max-w-md italic">Découvrez les adresses secrètes du Marais, de Saint-Germain et de Montmartre. Une cartographie de l'excellence où chaque point est un 10/10 garanti.</p>
                 <ul class="space-y-4 text-sm uppercase tracking-widest font-bold">
-                    <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-[#C9A96E]"></i> Artisans primés uniquement</li>
-                    <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-[#C9A96E]"></i> Alertes push personnalisées</li>
-                    <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-[#C9A96E]"></i> Intégration Conciergerie 5*</li>
+                    <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-[#C5A059]"></i> Artisans primés uniquement</li>
+                    <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-[#C5A059]"></i> Alertes push personnalisées</li>
+                    <li class="flex items-center gap-3"><i data-lucide="check" class="w-4 h-4 text-[#C5A059]"></i> Intégration Conciergerie 5*</li>
                 </ul>
             </div>
             <div class="relative opacity-40 grayscale group hover:grayscale-0 transition-all duration-700">
                 <div class="absolute inset-0 bg-gradient-to-r from-[#1A1A1A] to-transparent z-10"></div>
                 <img src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?auto=format&fit=crop&q=80&w=800" alt="Paris Map" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000">
-                <div class="absolute top-1/4 left-1/3 w-4 h-4 bg-[#C9A96E] rounded-full animate-ping"></div>
-                <div class="absolute top-1/2 left-2/3 w-4 h-4 bg-[#C9A96E] rounded-full animate-ping delay-300"></div>
+                <div class="absolute top-1/4 left-1/3 w-4 h-4 bg-[#C5A059] rounded-full animate-ping"></div>
+                <div class="absolute top-1/2 left-2/3 w-4 h-4 bg-[#C5A059] rounded-full animate-ping delay-300"></div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="px-6 py-12 md:px-12 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-8">
+    <footer id="waitlist" class="px-6 py-12 md:px-12 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-8">
         <div class="text-xl font-bold tracking-tight serif uppercase">Croustillant</div>
         <div class="text-[10px] uppercase tracking-[0.2em] text-black/40">
             &copy; 2026 Croustillant Paris. Tous droits réservés.
