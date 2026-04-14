@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Waitlist | Croustillant</title>
+    <title>Mon Rang | Croustillant Paris</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,7 +11,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root {
-            --brand-cream: #F9F6F0;
+            --brand-cream: #FAFAF7;
             --brand-charcoal: #1A1A1B;
             --brand-gold: #C5A059;
         }
@@ -36,16 +36,24 @@
         .progress-fill {
             height: 100%;
             background: var(--brand-gold);
-            width: 66%; /* Simulated progress */
+            width: 0%; /* Dynamic */
+            transition: width 1s ease-out;
         }
         
         .share-card {
             background-color: white;
-            border: 1px solid rgba(26, 26, 26, 0.1);
+            border: 1px solid rgba(26, 26, 26, 0.05);
             transition: all 0.3s ease;
         }
         .share-card:hover {
             border-color: var(--brand-gold);
+        }
+
+        .gold-badge {
+            background: linear-gradient(135deg, #C5A059 0%, #E2C285 50%, #C5A059 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -54,104 +62,183 @@
     <!-- Minimal Nav -->
     <nav class="flex justify-between items-center px-6 py-8 md:px-12">
         <div class="text-xl font-bold tracking-tight serif uppercase">Croustillant</div>
-        <a href="index.html" class="text-[10px] uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity">Retour</a>
+        <a href="index.html" class="text-[10px] uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity">Accueil</a>
     </nav>
 
-    <main class="flex-grow flex flex-col items-center justify-center px-6 py-12 max-w-4xl mx-auto w-full">
+    <main class="flex-grow flex flex-col items-center px-6 py-12 max-w-5xl mx-auto w-full">
         
-        <div class="text-center mb-16">
+        <!-- Rank Header -->
+        <div class="text-center mb-16 animate-fade-in">
             <span class="text-[10px] uppercase tracking-[0.4em] font-bold accent-gold mb-4 block">Votre accès prioritaire</span>
-            <h1 class="text-6xl md:text-8xl font-medium mb-6">#12</h1>
-            <p class="text-xl italic opacity-60">dans la file d'attente Croustillant Paris.</p>
+            <h1 id="user-rank" class="text-7xl md:text-9xl font-medium mb-6">#84</h1>
+            <p class="text-xl italic opacity-60">dans la file d'attente pour le Cercle des 500.</p>
         </div>
 
-        <div class="w-full grid md:grid-cols-2 gap-12 items-start">
+        <div class="w-full grid lg:grid-cols-2 gap-16 items-start">
             
-            <!-- Referral Stats -->
+            <!-- Left: Stats & Referral -->
             <div class="space-y-12">
-                <section>
-                    <h2 class="text-xs uppercase tracking-[0.3em] font-bold mb-6">Progression Gold</h2>
-                    <div class="flex justify-between mb-4 items-end">
-                        <span class="text-3xl font-medium serif">2 <span class="text-sm italic opacity-40">/ 3 parrainages</span></span>
-                        <span class="text-[10px] uppercase tracking-widest accent-gold font-bold">Presque là</span>
+                <section class="bg-white p-10 border border-black/5 sharp-corners">
+                    <div class="flex justify-between items-center mb-10">
+                        <h2 class="text-xs uppercase tracking-[0.3em] font-bold">Statut Actuel</h2>
+                        <span id="status-label" class="text-[10px] uppercase tracking-widest px-3 py-1 border border-black/10 font-bold">Éclaireur</span>
                     </div>
-                    <div class="progress-bar mb-4">
-                        <div class="progress-fill"></div>
+                    
+                    <div class="mb-12">
+                        <div class="flex justify-between mb-4 items-end">
+                            <span class="text-4xl font-medium serif"><span id="referral-count">0</span> <span class="text-sm italic opacity-40">/ 3 parrainages</span></span>
+                            <span class="text-[10px] uppercase tracking-widest accent-gold font-bold">Objectif Gold</span>
+                        </div>
+                        <div class="progress-bar mb-6">
+                            <div id="progress-fill" class="progress-fill"></div>
+                        </div>
+                        <p class="text-sm opacity-60 leading-relaxed italic">
+                            Invitez encore <span id="remaining-referrals">3</span> amis pour débloquer le **Pass Gold** : Accès complet au Top 50 et notifications "Hot Batch" prioritaires.
+                        </p>
                     </div>
-                    <p class="text-xs opacity-50 leading-relaxed">
-                        Invitez encore 1 ami pour débloquer le statut **Membre Gold** : accès complet au Top 50 et alertes de fournées prioritaires.
-                    </p>
+
+                    <div class="pt-8 border-t border-black/5">
+                        <h3 class="text-[10px] uppercase tracking-[0.3em] font-bold mb-6">Votre lien de parrainage unique</h3>
+                        <div class="flex gap-2">
+                            <input type="text" id="referral-link" readonly value="https://croustillant.paris/?ref=a7b2" class="flex-grow bg-stone-50 px-4 py-4 text-xs sharp-corners border border-black/10 focus:outline-none font-mono">
+                            <button onclick="copyLink()" class="bg-black text-white px-6 py-4 text-[10px] uppercase tracking-widest font-bold sharp-corners hover:bg-gold transition-colors">Copier</button>
+                        </div>
+                    </div>
                 </section>
 
-                <section class="bg-white p-8 sharp-corners border border-black/5">
-                    <h3 class="text-xs uppercase tracking-[0.3em] font-bold mb-6">Votre lien unique</h3>
-                    <div class="flex gap-2">
-                        <input type="text" readonly value="https://croustillant.paris/?ref=a7b2" class="flex-grow bg-stone-50 p-3 text-xs sharp-corners border border-black/10 focus:outline-none">
-                        <button onclick="copyLink()" class="bg-black text-white px-4 py-2 text-[10px] uppercase tracking-widest font-bold sharp-corners">Copier</button>
+                <section class="space-y-6">
+                    <h2 class="text-xs uppercase tracking-[0.3em] font-bold">Actions de Partage</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <button onclick="shareWhatsApp()" class="flex items-center justify-center gap-3 bg-[#25D366] text-white py-4 text-[10px] uppercase tracking-widest font-bold sharp-corners">
+                            <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
+                        </button>
+                        <button onclick="shareTelegram()" class="flex items-center justify-center gap-3 bg-[#0088cc] text-white py-4 text-[10px] uppercase tracking-widest font-bold sharp-corners">
+                            <i data-lucide="send" class="w-4 h-4"></i> Telegram
+                        </button>
                     </div>
                 </section>
             </div>
 
-            <!-- Social Sharing -->
+            <!-- Right: Visual & Sharing -->
             <div class="space-y-8">
-                <h2 class="text-xs uppercase tracking-[0.3em] font-bold mb-6">Partager mon rang</h2>
+                <h2 class="text-xs uppercase tracking-[0.3em] font-bold">Kit de Partage Story</h2>
                 
-                <div class="share-card p-4 relative aspect-[9/16] overflow-hidden group">
-                    <img src="images/instagram-story-sharing-card-for-crousti.png" alt="Instagram Story Template" class="absolute inset-0 w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
-                    <div class="absolute inset-x-0 bottom-0 p-8 text-white">
-                        <button class="w-full py-4 bg-white text-black text-[10px] uppercase tracking-widest font-bold sharp-corners shadow-xl">
+                <div class="share-card relative aspect-[9/16] overflow-hidden group shadow-2xl">
+                    <img src="images/luxury-dashboard-ui-for-a-croissant-wait.png" alt="Instagram Story Template" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/10 group-hover:bg-black/5 transition-colors"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-10">
+                        <p class="text-white text-xs uppercase tracking-widest mb-6 opacity-80 text-center font-bold">Appuyez pour enregistrer le visuel</p>
+                        <button onclick="shareIG()" class="w-full py-5 bg-white text-black text-[10px] uppercase tracking-widest font-bold sharp-corners shadow-xl hover:bg-gold hover:text-white transition-all">
                             Partager sur Instagram
                         </button>
                     </div>
                 </div>
                 
-                <p class="text-[10px] uppercase tracking-widest text-center opacity-40">
-                    Utilisez ce visuel pour passer devant tout le monde.
+                <p class="text-[10px] uppercase tracking-[0.2em] text-center opacity-40 leading-relaxed italic">
+                    Astuce : Partagez ce visuel en Story et identifiez @CroustillantParis <br>pour recevoir un badge "Fondateur" exclusif.
                 </p>
             </div>
 
         </div>
 
-        <!-- Visual Mockup Reference (UI Designer Hand-off) -->
-        <div class="editorial-line w-full my-24 opacity-20 border-t border-black"></div>
-        <div class="w-full">
-            <h2 class="text-xs uppercase tracking-[0.3em] font-bold mb-12 text-center">Spécifications Design (MVP)</h2>
-            <div class="grid md:grid-cols-2 gap-8">
+        <!-- Benefits Grid -->
+        <div class="editorial-line w-full my-32"></div>
+        
+        <div class="w-full mb-24">
+            <h2 class="text-xs uppercase tracking-[0.3em] font-bold mb-16 text-center">Les privilèges du Cercle</h2>
+            <div class="grid md:grid-cols-3 gap-12">
                 <div class="space-y-4">
-                    <p class="text-sm leading-relaxed opacity-70 italic">Interface Mobile Native (Concept)</p>
-                    <img src="images/mobile-app-ui-for-a-luxury-bakery-app-ca.png" alt="App UI Concept" class="w-full shadow-2xl sharp-corners">
+                    <div class="accent-gold font-bold serif text-3xl italic">01.</div>
+                    <h3 class="text-sm font-bold uppercase tracking-widest">Alerte Hot Batch</h3>
+                    <p class="text-sm opacity-60 leading-relaxed">Notifications haptiques à la seconde où vos boulangeries préférées sortent leurs fournées.</p>
                 </div>
-                <div class="flex flex-col justify-center space-y-8">
-                    <div class="p-6 border-l-2 border-gold italic text-lg leading-relaxed">
-                        "Le design post-inscription doit confirmer le statut d'initié. L'usage de l'espace blanc et des angles droits renforce l'autorité éditoriale."
-                    </div>
-                    <ul class="text-xs space-y-4 uppercase tracking-widest font-medium opacity-60">
-                        <li>- Typographie : Playfair Display Bold</li>
-                        <li>- Palette : Beurre (#F9F6F0) & Charbon (#1A1A1B)</li>
-                        <li>- Grid : 8px editorial system</li>
-                        <li>- Components : No border-radius</li>
-                    </ul>
+                <div class="space-y-4">
+                    <div class="accent-gold font-bold serif text-3xl italic">02.</div>
+                    <h3 class="text-sm font-bold uppercase tracking-widest">Index Complet</h3>
+                    <p class="text-sm opacity-60 leading-relaxed">Débloquez les 50 adresses secrètes validées par notre comité d'experts.</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="accent-gold font-bold serif text-3xl italic">03.</div>
+                    <h3 class="text-sm font-bold uppercase tracking-widest">Conciergerie</h3>
+                    <p class="text-sm opacity-60 leading-relaxed">Réservations prioritaires et coupes-file chez les artisans lauréats du Grand Paris.</p>
                 </div>
             </div>
         </div>
 
     </main>
 
-    <footer class="px-6 py-12 md:px-12 border-t border-black/5 flex justify-between items-center mt-auto">
+    <footer class="px-6 py-12 md:px-12 border-t border-black/5 flex flex-col md:flex-row justify-between items-center gap-6 mt-auto">
         <div class="text-[10px] uppercase tracking-[0.2em] text-black/40">
-            &copy; 2026 Croustillant Paris
+            &copy; 2026 Croustillant Paris &mdash; L'excellence du timing.
         </div>
-        <div class="flex space-x-6 text-black/40">
-            <a href="#" class="hover:text-black transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+        <div class="flex space-x-8 text-[10px] uppercase tracking-widest font-bold opacity-40">
+            <a href="index.html" class="hover:opacity-100">Mentions</a>
+            <a href="index.html" class="hover:opacity-100">Confidentialité</a>
         </div>
     </footer>
 
     <script>
         lucide.createIcons();
+
+        // Simulated Logic for the Prototyping Phase
+        const userEmail = localStorage.getItem('croustillant_email') || "bonjour@paris.com";
+        const userRef = btoa(userEmail).substring(0, 6).toLowerCase();
+        const referralLink = `https://baget-croustillant.vercel.app/?ref=${userRef}`;
+        
+        document.getElementById('referral-link').value = referralLink;
+
+        // Simulated stats based on the "rank" logic
+        // We simulate a rank between 80 and 420 for new users
+        let rank = localStorage.getItem('croustillant_rank');
+        if (!rank) {
+            rank = Math.floor(Math.random() * (420 - 80 + 1)) + 80;
+            localStorage.setItem('croustillant_rank', rank);
+        }
+        document.getElementById('user-rank').innerText = `#${rank}`;
+
+        // Simulated referrals
+        let referrals = parseInt(localStorage.getItem('croustillant_referrals')) || 0;
+        document.getElementById('referral-count').innerText = referrals;
+        document.getElementById('remaining-referrals').innerText = 3 - referrals;
+        
+        const progressFill = document.getElementById('progress-fill');
+        const statusLabel = document.getElementById('status-label');
+        
+        function updateUI() {
+            const percentage = (referrals / 3) * 100;
+            progressFill.style.width = `${Math.min(percentage, 100)}%`;
+            
+            if (referrals >= 3) {
+                statusLabel.innerText = "Membre Gold";
+                statusLabel.classList.add('bg-gold', 'text-white', 'border-none');
+                document.getElementById('remaining-referrals').parentElement.innerHTML = "<span class='gold-badge'>Accès Gold Débloqué !</span>";
+            }
+        }
+
+        setTimeout(updateUI, 500);
+
         function copyLink() {
-            navigator.clipboard.writeText("https://croustillant.paris/?ref=a7b2");
-            alert("Lien copié dans le presse-papier !");
+            const el = document.getElementById('referral-link');
+            el.select();
+            document.execCommand('copy');
+            const btn = event.currentTarget;
+            const originalText = btn.innerText;
+            btn.innerText = "Copié !";
+            setTimeout(() => { btn.innerText = originalText; }, 2000);
+        }
+
+        function shareWhatsApp() {
+            const text = encodeURIComponent(`Je viens de rejoindre la waitlist Croustillant pour attraper les meilleurs croissants de Paris à la sortie du four. Utilise mon lien pour passer devant tout le monde : ${referralLink}`);
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+        }
+
+        function shareTelegram() {
+            const text = encodeURIComponent(`L'élite du croissant parisien en temps réel.`);
+            window.open(`https://t.me/share/url?url=${referralLink}&text=${text}`, '_blank');
+        }
+
+        function shareIG() {
+            alert("Enregistrez l'image ci-dessous et partagez-la en Story en identifiant @CroustillantParis !");
         }
     </script>
 </body>
