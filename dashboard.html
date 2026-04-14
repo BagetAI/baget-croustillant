@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Waitlist | Croustillant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --brand-cream: #F9F6F0;
+            --brand-charcoal: #1A1A1B;
+            --brand-gold: #C5A059;
+        }
+        body {
+            background-color: var(--brand-cream);
+            color: var(--brand-charcoal);
+            font-family: 'Source Sans 3', sans-serif;
+        }
+        h1, h2, h3, h4, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+        .accent-gold { color: var(--brand-gold); }
+        .bg-gold { background-color: var(--brand-gold); }
+        .border-gold { border-color: var(--brand-gold); }
+        .sharp-corners { border-radius: 0 !important; }
+        
+        .progress-bar {
+            height: 2px;
+            background: rgba(26, 26, 26, 0.1);
+            position: relative;
+        }
+        .progress-fill {
+            height: 100%;
+            background: var(--brand-gold);
+            width: 66%; /* Simulated progress */
+        }
+        
+        .share-card {
+            background-color: white;
+            border: 1px solid rgba(26, 26, 26, 0.1);
+            transition: all 0.3s ease;
+        }
+        .share-card:hover {
+            border-color: var(--brand-gold);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Minimal Nav -->
+    <nav class="flex justify-between items-center px-6 py-8 md:px-12">
+        <div class="text-xl font-bold tracking-tight serif uppercase">Croustillant</div>
+        <a href="index.html" class="text-[10px] uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity">Retour</a>
+    </nav>
+
+    <main class="flex-grow flex flex-col items-center justify-center px-6 py-12 max-w-4xl mx-auto w-full">
+        
+        <div class="text-center mb-16">
+            <span class="text-[10px] uppercase tracking-[0.4em] font-bold accent-gold mb-4 block">Votre accès prioritaire</span>
+            <h1 class="text-6xl md:text-8xl font-medium mb-6">#12</h1>
+            <p class="text-xl italic opacity-60">dans la file d'attente Croustillant Paris.</p>
+        </div>
+
+        <div class="w-full grid md:grid-cols-2 gap-12 items-start">
+            
+            <!-- Referral Stats -->
+            <div class="space-y-12">
+                <section>
+                    <h2 class="text-xs uppercase tracking-[0.3em] font-bold mb-6">Progression Gold</h2>
+                    <div class="flex justify-between mb-4 items-end">
+                        <span class="text-3xl font-medium serif">2 <span class="text-sm italic opacity-40">/ 3 parrainages</span></span>
+                        <span class="text-[10px] uppercase tracking-widest accent-gold font-bold">Presque là</span>
+                    </div>
+                    <div class="progress-bar mb-4">
+                        <div class="progress-fill"></div>
+                    </div>
+                    <p class="text-xs opacity-50 leading-relaxed">
+                        Invitez encore 1 ami pour débloquer le statut **Membre Gold** : accès complet au Top 50 et alertes de fournées prioritaires.
+                    </p>
+                </section>
+
+                <section class="bg-white p-8 sharp-corners border border-black/5">
+                    <h3 class="text-xs uppercase tracking-[0.3em] font-bold mb-6">Votre lien unique</h3>
+                    <div class="flex gap-2">
+                        <input type="text" readonly value="https://croustillant.paris/?ref=a7b2" class="flex-grow bg-stone-50 p-3 text-xs sharp-corners border border-black/10 focus:outline-none">
+                        <button onclick="copyLink()" class="bg-black text-white px-4 py-2 text-[10px] uppercase tracking-widest font-bold sharp-corners">Copier</button>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Social Sharing -->
+            <div class="space-y-8">
+                <h2 class="text-xs uppercase tracking-[0.3em] font-bold mb-6">Partager mon rang</h2>
+                
+                <div class="share-card p-4 relative aspect-[9/16] overflow-hidden group">
+                    <img src="images/instagram-story-sharing-card-for-crousti.png" alt="Instagram Story Template" class="absolute inset-0 w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                    <div class="absolute inset-x-0 bottom-0 p-8 text-white">
+                        <button class="w-full py-4 bg-white text-black text-[10px] uppercase tracking-widest font-bold sharp-corners shadow-xl">
+                            Partager sur Instagram
+                        </button>
+                    </div>
+                </div>
+                
+                <p class="text-[10px] uppercase tracking-widest text-center opacity-40">
+                    Utilisez ce visuel pour passer devant tout le monde.
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Visual Mockup Reference (UI Designer Hand-off) -->
+        <div class="editorial-line w-full my-24 opacity-20 border-t border-black"></div>
+        <div class="w-full">
+            <h2 class="text-xs uppercase tracking-[0.3em] font-bold mb-12 text-center">Spécifications Design (MVP)</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="space-y-4">
+                    <p class="text-sm leading-relaxed opacity-70 italic">Interface Mobile Native (Concept)</p>
+                    <img src="images/mobile-app-ui-for-a-luxury-bakery-app-ca.png" alt="App UI Concept" class="w-full shadow-2xl sharp-corners">
+                </div>
+                <div class="flex flex-col justify-center space-y-8">
+                    <div class="p-6 border-l-2 border-gold italic text-lg leading-relaxed">
+                        "Le design post-inscription doit confirmer le statut d'initié. L'usage de l'espace blanc et des angles droits renforce l'autorité éditoriale."
+                    </div>
+                    <ul class="text-xs space-y-4 uppercase tracking-widest font-medium opacity-60">
+                        <li>- Typographie : Playfair Display Bold</li>
+                        <li>- Palette : Beurre (#F9F6F0) & Charbon (#1A1A1B)</li>
+                        <li>- Grid : 8px editorial system</li>
+                        <li>- Components : No border-radius</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="px-6 py-12 md:px-12 border-t border-black/5 flex justify-between items-center mt-auto">
+        <div class="text-[10px] uppercase tracking-[0.2em] text-black/40">
+            &copy; 2026 Croustillant Paris
+        </div>
+        <div class="flex space-x-6 text-black/40">
+            <a href="#" class="hover:text-black transition-colors"><i data-lucide="instagram" class="w-5 h-5"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        function copyLink() {
+            navigator.clipboard.writeText("https://croustillant.paris/?ref=a7b2");
+            alert("Lien copié dans le presse-papier !");
+        }
+    </script>
+</body>
+</html>
